@@ -187,24 +187,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Encouraged by the growing availability of pre-trained 2D diffusion models, 
-            image-to-3D generation by leveraging Score Distillation Sampling (SDS) is making remarkable progress. 
-            Most existing methods combine novel-view lifting from 2D diffusion models which usually 
-            take the reference image as a condition meanwhile applying hard L2 image supervision at the reference view. 
-            Yet heavily adhering to the image is prone to corrupting the inductive knowledge of the 2D diffusion model 
-            leading to flat or distorted 3D generation frequently. In this work, we reexamine image-to-3D in a novel 
-            perspective and present Isotropic3D, an image-to-3D generation pipeline that takes only an image CLIP 
-            embedding as input. Isotropic3D allows the optimization to be isotropic w.r.t. the azimuth angle by solely 
-            resting on the SDS loss. The core of our framework lies in a two-stage diffusion model fine-tuning. 
-            Firstly, we fine-tune a text-to-3D diffusion model by substituting its text encoder with an image encoder, 
-            by which the model preliminarily acquires image-to-image capabilities. 
-            Secondly, we perform fine-tuning using our Explicit Multi-view Attention (EMA) which combines 
-            noisy multi-view images with the noise-free reference image as an explicit condition. 
-            CLIP embedding is sent to the diffusion model throughout the whole process while reference images are discarded 
-            once after fine-tuning. As a result, with a single image CLIP embedding, Isotropic3D is capable of generating 
-            multi-view mutually consistent images and also a 3D model with more well-proportioned 
-            geometry, rich colored texture, and less distortion compared with existing image-to-3D methods 
-            while still preserving the similarity to the reference image to a large extent. 
+            Encouraged by the growing availability of pre-trained 2D diffusion models, image-to-3D generation by leveraging Score Distillation Sampling (SDS) is making remarkable progress. Most existing methods combine novel-view lifting from 2D diffusion models which usually take the reference image as a condition meanwhile applying hard L2 image supervision at the reference view. Yet heavily adhering to the image is prone to corrupting the inductive knowledge of the 2D diffusion model leading to flat or distorted 3D generation frequently. In this work, we reexamine image-to-3D in a novel perspective and present Isotropic3D, an image-to-3D generation pipeline that takes only an image CLIP embedding as input. Isotropic3D allows the optimization to be isotropic w.r.t. the azimuth angle by solely resting on the SDS loss. The core of our framework lies in a two-stage diffusion model fine-tuning. Firstly, we fine-tune a text-to-3D diffusion model by substituting its text encoder with an image encoder, by which the model preliminarily acquires image-to-image capabilities. Secondly, we perform fine-tuning using our Explicit Multi-view Attention (EMA) which combines noisy multi-view images with the noise-free reference image as an explicit condition. CLIP embedding is sent to the diffusion model throughout the whole process while reference images are discarded once after fine-tuning. As a result, with a single image CLIP embedding, Isotropic3D is capable of generating multi-view mutually consistent images and also a 3D model with more symmetrical and neat content, well-proportioned geometry, rich colored texture, and less distortion compared with existing image-to-3D methods while still preserving the similarity to the reference image to a large extent.
           </p>
         </div>
       </div>
@@ -229,11 +212,11 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
+        <source src="./static/videos/more_results_1.mp4"
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Isotropic3D</span> is capable of generating multi-view mutually consistent images and also a 3D model with regular geometry, rich colored texture, and less distortion while still preserving the similarity.
+        <span class="dnerf">Isotropic3D</span> is proficient in generating multi-view images that maintain mutual consistency, as well as producing a 3D model characterized by symmetrical and neat content, regular geometry, rich colored texture, and less distortion, all while preserving similarity to reference image.
       </h2>
       <br>
       <h2 class="title is-3 has-text-centered"> Method</h2>
@@ -241,77 +224,50 @@
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">Isotropic3D</span> Pipeline
       </h2>
-      <p>
-        The framework that generates consistent multi-view images from only a single CLIP embedding can be aligned with the input view while retaining the consistency of the output target view. The multi-view diffusion model is used to generate diverse but consistent multi-view images, and then the Neural Radiance Field (NeRF) yields high-quality 3D content optimized by rendered images via the Score Distillation Sampling (SDS).
-      </p>
+      <!-- <p>
+        The framework that generates consistent multi-view images from only a single CLIP embedding can be aligned with the input view while retaining the consistency of the output target view.
+      </p> -->
+      <br>
+      <div class="title has-text-centered">
+        <img src="./static/images/mvd.png" alt="Overview" width="80%">
+      </div>
       
-      <img src="./static/images/mvd.png" alt="Overview" width="100%">
+      <!-- <h2 class="subtitle has-text-centered">
+        Multi-view Diffusion Pipeline (left) & Explicit Multi-view Attention (right)
+      </h2> -->
+      <div class="title has-text-centered"> 
+        <img src="./static/images/atten.png" alt="Overview" width="50%"/>
+      </div>
       <h2 class="subtitle has-text-centered">
-        Multi-view Diffusion Pipeline
+        Multi-view Diffusion Pipeline (upper) & <b>E</b>xplicit <b>M</b>ulti-view <b>A</b>ttention (bottom)
+        <!-- Explicit Multi-view Attention (EMA) -->
       </h2>
       <p>
         Our training process is divided into two stages. In the first stage, we fine-tune a text-to-3D diffusion model by substituting its text encoder with an image encoder, by which the model preliminarily acquires image-to-image capabilities. In the second stage, we perform fine-tuning leveraging our <b>Explicit Multi-view Attention (EMA)</b> which combines noisy multi-view images with the noise-free reference image as an explicit condition. During inference, we <b>only</b>  need to send the <b>CLIP embedding</b> of the input view and camera pose to generate consistent high-quality images from multiple perspectives.
       </p>
-      <div class="title has-text-centered">
-        <img src="./static/images/atten.png" alt="Overview" width="60%"/>
-      </div>
-      <h2 class="subtitle has-text-centered">
-        Explicit Multi-view Attention (EMA)
-      </h2>
     </div>
   </div>
 </section>
 <br>
 
-<section class="hero example">
-  <div class="container is-max-desktop">
-    <div class="title has-text-centered">
-      <h2 class="title is-3">Example generated objects</h2>
-      <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_1.mp4"
-                type="video/mp4">
-      </video>
-      <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_2.mp4"
-                type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
-<br>
 <section class="hero comparison">
   <div class="container is-max-desktop">
     <div class="title has-text-centered">
-      <h2 class="title is-3">Qualitative comparisons of 3D Generation with baseline models</h2>
+      <h2 class="title is-3">Qualitative comparisons with baseline models</h2>
       <video id="comparison" autoplay muted loop playsinline height="100%">
         <source src="./static/videos/compare_3D_1.mp4"
                 type="video/mp4">
       </video>
-    </div>
-  </div>
-</section>
-
-
-
-<section class="hero example">
-  <div class="container is-max-desktop">
-    <div class="title has-text-centered">
-      <h2 class="title is-3">Additional comparisons</h2>
-      <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/L2_4k.mp4"
+      <video id="comparison" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/compare_3D_2.mp4"
                 type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
-      Additional qualitative comparisons of 3D generation between our model 
-      and baseline models in different settings. CCR is denote as channel-concatenate 
-      reference image. "NOTHING" means that it does not generate anything.
-      When removing CCR and L2 supervision together, this is equivalent to using only <b>a single CLIP embedding.<b>
-      </h2>
+      
     </div>
   </div>
 </section>
 
-<br>
+<!-- <br>
 <section class="hero comparison">
   <div class="container is-max-desktop">
     <div class="title has-text-centered">
@@ -322,34 +278,82 @@
       </video>
     </div>
   </div>
+</section> -->
+
+<section class="hero example">
+  <div class="container is-max-desktop">
+    <div class="title has-text-centered">
+      <h2 class="title is-3">Qualitative comparisons in different settings</h2>
+      <video id="example" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/L2_4k.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+      CCR is denote as channel-concatenate 
+      reference image. "NOTHING" means that it does not generate anything.
+      When removing CCR and L2 supervision together, this is equivalent to using only <b>a single CLIP embedding.<b>
+      </h2>
+    </div>
+  </div>
 </section>
+
+<!-- <br>
+<section class="hero comparison">
+  <div class="container is-max-desktop">
+    <div class="title has-text-centered">
+      <h2 class="title is-3">More additional comparisons</h2>
+      <video id="comparison" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/compare_3D_2.mp4"
+                type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section> -->
+
+<section class="hero example">
+  <div class="container is-max-desktop">
+    <div class="title has-text-centered">
+      <h2 class="title is-3">Two groups of results are from two runs by Isotropic3D</h2>
+      <video id="example" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/more_results_9.mp4"
+                type="video/mp4">
+      </video>
+
+    </div>
+  </div>
+</section>
+<br>
 
 <section class="hero example">
   <div class="container is-max-desktop">
     <div class="title has-text-centered">
       <h2 class="title is-3">More results</h2>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_3.mp4"
+        <source src="./static/videos/more_results_2.mp4"
                 type="video/mp4">
       </video>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_4.mp4"
+        <source src="./static/videos/more_results_3.mp4"
                 type="video/mp4">
       </video>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_5.mp4"
+        <source src="./static/videos/more_results_4.mp4"
                 type="video/mp4">
       </video>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_6.mp4"
+        <source src="./static/videos/more_results_5.mp4"
                 type="video/mp4">
       </video>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_7.mp4"
+        <source src="./static/videos/more_results_6.mp4"
                 type="video/mp4">
       </video>
       <video id="example" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/results_8.mp4"
+        <source src="./static/videos/more_results_7.mp4"
+                type="video/mp4">
+      </video>
+      <video id="example" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/more_results_8.mp4"
                 type="video/mp4">
       </video>
     </div>
