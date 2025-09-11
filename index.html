@@ -187,7 +187,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Encouraged by the growing availability of pre-trained 2D diffusion models, image-to-3D generation by leveraging Score Distillation Sampling (SDS) is making remarkable progress. Most existing methods combine novel-view lifting from 2D diffusion models which usually take the reference image as a condition meanwhile applying hard L2 image supervision at the reference view. Yet heavily adhering to the image is prone to corrupting the inductive knowledge of the 2D diffusion model leading to flat or distorted 3D generation frequently. In this work, we reexamine image-to-3D in a novel perspective and present Isotropic3D, an image-to-3D generation pipeline that takes only an image CLIP embedding as input. Isotropic3D allows the optimization to be isotropic w.r.t. the azimuth angle by solely resting on the SDS loss. The core of our framework lies in a two-stage diffusion model fine-tuning. Firstly, we fine-tune a text-to-3D diffusion model by substituting its text encoder with an image encoder, by which the model preliminarily acquires image-to-image capabilities. Secondly, we perform fine-tuning using our Explicit Multi-view Attention (EMA) which combines noisy multi-view images with the noise-free reference image as an explicit condition. CLIP embedding is sent to the diffusion model throughout the whole process while reference images are discarded once after fine-tuning. As a result, with a single image CLIP embedding, Isotropic3D is capable of generating multi-view mutually consistent images and also a 3D model with more symmetrical and neat content, well-proportioned geometry, rich colored texture, and less distortion compared with existing image-to-3D methods while still preserving the similarity to the reference image to a large extent.
+            Encouraged by the growing availability of pre-trained 2D diffusion models, image-to-3D generation by leveraging Score Distillation Sampling (SDS) is making remarkable progress. However, most existing approaches rely heavily on reference-view image supervision, which often disrupts the inductive priors of diffusion models and leads to distorted geometry or overly smooth back regions. To overcome these limitations, we propose Isotropic3D, a novel image-to-3D framework that takes only a single image CLIP embedding as input. Our method ensures azimuth-angle isotropy by relying exclusively on the SDS loss, avoiding overfitting to the reference image. Isotropic3D is consist of two main components: a EMA-conditioned multi-view diffusion model (EMA-MVD) and a Neural Radiance Field (NeRF). The core of EMA-MVD lies in a two-stage fine-tuning. Firstly, we fine-tune a text-to-3D diffusion model by substituting its text encoder with an image encoder, by which the model preliminarily acquires image-to-image capabilities. Secondly, we perform fine-tuning using our Explicit Multi-view Attention (EMA), which combines noisy multi-view images with the noise-free reference image as an explicit condition. After fine-tuning, Isotropic3D, built upon SDS with NeRF, can generate multi-view consistent images from a single CLIP embedding and reconstruct a 3D model with improved symmetry, well-proportioned geometry, richly colored textures, and reduced distortion. 
           </p>
         </div>
       </div>
@@ -216,11 +216,11 @@
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Isotropic3D</span> is proficient in generating multi-view images that maintain mutual consistency, as well as producing a 3D model characterized by symmetrical and neat content, regular geometry, rich colored texture, and less distortion, all while preserving similarity to reference image.
+        <span class="dnerf">Isotropic3D</span> is proficient in generating multi-view images that maintain mutual consistency, as well as producing a 3D model characterized by symmetrical and neat content, regular geometry, rich colored texture, and less distortion.
       </h2>
       <br>
       <h2 class="title is-3 has-text-centered"> Method</h2>
-      <img src="./static/images/pipeline.png" alt="Overview" width="100%">
+      <img src="./static/images/mvd.png" alt="Overview" width="100%">
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">Isotropic3D</span> Pipeline
       </h2>
@@ -228,9 +228,9 @@
         The framework that generates consistent multi-view images from only a single CLIP embedding can be aligned with the input view while retaining the consistency of the output target view.
       </p> -->
       <br>
-      <div class="title has-text-centered">
+      <!-- <div class="title has-text-centered">
         <img src="./static/images/mvd.png" alt="Overview" width="90%">
-      </div>
+      </div> -->
       
       <!-- <h2 class="subtitle has-text-centered">
         Multi-view Diffusion Pipeline
@@ -239,7 +239,7 @@
         <img src="./static/images/atten.png" alt="Overview" width="50%"/>
       </div>
       <h2 class="subtitle has-text-centered">
-        Multi-view Diffusion Pipeline (upper) & <b>E</b>xplicit <b>M</b>ulti-view <b>A</b>ttention (bottom)
+         <b>E</b>xplicit <b>M</b>ulti-view <b>A</b>ttention (EMA)
         <!-- Explicit Multi-view Attention (EMA) -->
       </h2>
       <p>
